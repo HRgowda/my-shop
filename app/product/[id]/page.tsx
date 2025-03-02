@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
+import Image from "next/image";
 import { Product } from "@/types/product";
 import { Star, ArrowLeft } from "lucide-react";
 import { toast } from "react-hot-toast";
@@ -9,7 +10,7 @@ import QuantitySelector from "@/components/QuantitySelector";
 
 export default function ProductDetail() {
   const router = useRouter();
-  const { id } = useParams(); 
+  const { id } = useParams<{ id: string }>(); 
   const [product, setProduct] = useState<Product | null>(null);
 
   useEffect(() => {
@@ -17,7 +18,7 @@ export default function ProductDetail() {
 
     fetch(`https://dummyjson.com/products/${id}`)
       .then((res) => res.json())
-      .then((data) => setProduct(data))
+      .then((data: Product) => setProduct(data)) 
       .catch((error) => console.error("Error fetching product:", error));
   }, [id]);
 
@@ -38,10 +39,13 @@ export default function ProductDetail() {
 
       {/* Image Section */}
       <div className="flex-1 flex justify-center items-center">
-        <img
+        <Image
           src={product.thumbnail}
           alt={product.title}
-          className="object-cover max-h-[50vh]"
+          width={300} 
+          height={300} 
+          className="object-cover max-h-[50vh] rounded-lg"
+          priority
         />
       </div>
 
@@ -57,9 +61,7 @@ export default function ProductDetail() {
         </div>
 
         {/* Description */}
-        <p className="font-thin text-white">
-          {product.description}
-        </p>
+        <p className="font-thin text-white">{product.description}</p>
 
         {/* Quantity Selector & Price */}
         <div className="grid grid-cols-2 items-center mt-2">
@@ -68,7 +70,10 @@ export default function ProductDetail() {
         </div>
 
         {/* Add to Cart Button */}
-        <button onClick={() => toast.success("Added to cart")}className="w-full text-black py-3 rounded-lg mt-2 bg-gradient-to-r from-[#F9D03F] to-[#E9B32A] shadow-[0px_4px_24px_4px_#F9D14033] cursor-pointer" >
+        <button
+          onClick={() => toast.success("Added to cart")}
+          className="w-full text-black py-3 rounded-lg mt-2 bg-gradient-to-r from-[#F9D03F] to-[#E9B32A] shadow-[0px_4px_24px_4px_#F9D14033] cursor-pointer"
+        >
           Add to Cart
         </button>
       </div>
