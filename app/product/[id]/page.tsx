@@ -7,20 +7,25 @@ import { Product } from "@/types/product";
 import { Star, ArrowLeft } from "lucide-react";
 import { toast } from "react-hot-toast";
 import QuantitySelector from "@/components/QuantitySelector";
+import { useProductStore } from "@/store/useProductStore";
 
 export default function ProductDetail() {
   const router = useRouter();
   const { id } = useParams<{ id: string }>(); 
   const [product, setProduct] = useState<Product | null>(null);
+  const { quantity, setQuantity } = useProductStore();
 
   useEffect(() => {
     if (!id) return;
 
     fetch(`https://dummyjson.com/products/${id}`)
       .then((res) => res.json())
-      .then((data: Product) => setProduct(data)) 
+      .then((data: Product) => {
+        setProduct(data);
+        setQuantity(1); // Reset quantity to 1 when loading a new product
+      }) 
       .catch((error) => console.error("Error fetching product:", error));
-  }, [id]);
+  }, [id, setQuantity]);
 
   if (!product)
     return (
@@ -66,12 +71,12 @@ export default function ProductDetail() {
         {/* Quantity Selector & Price */}
         <div className="grid grid-cols-2 items-center mt-2">
           <QuantitySelector />
-          <p className="text-lg text-right">${product.price}</p>
+          <p className="text-lg text-right">${(quantity * product.price).toFixed(2)}</p>
         </div>
 
         {/* Add to Cart Button */}
         <button
-          onClick={() => toast.success("Added to cart")}
+          onClick={() => toast.success(`Added ${quantity} to cart`)}
           className="w-full text-black py-3 rounded-lg mt-2 bg-gradient-to-r from-[#F9D03F] to-[#E9B32A] shadow-[0px_4px_24px_4px_#F9D14033] cursor-pointer"
         >
           Add to Cart
