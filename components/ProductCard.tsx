@@ -3,6 +3,7 @@
 import { Product } from "@/types/product";
 import { useRouter } from "next/navigation";
 import { Star } from "lucide-react";
+import Image from "next/image";
 
 const ProductCard = ({ product }: { product: Product }) => {
   const router = useRouter();
@@ -13,11 +14,13 @@ const ProductCard = ({ product }: { product: Product }) => {
       className="p-4 rounded-xl shadow-md cursor-pointer w-full max-w-2xl bg-[#1F1F1F]"
     >
       {/* Top Section - Image */}
-      <div className="w-full h-40 flex justify-center items-center">
-        <img
+      <div className="w-full h-40 flex justify-center items-center relative">
+        <Image
           src={product.thumbnail}
           alt={product.title}
-          className="w-full h-full object-contain rounded-lg"
+          layout="fill"
+          objectFit="contain"
+          className="rounded-lg"
         />
       </div>
 

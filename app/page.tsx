@@ -16,7 +16,7 @@ export default function ProductsPage() {
       .then((res) => res.json())
       .then((data: { products: Product[] }) => {
         setProducts(data.products);
-        setCategories([...new Set(data.products.map((p: any) => p.category))]);
+        setCategories([...new Set(data.products.map((p: Product) => p.category))]);
       })
       .catch((error) => console.error("Error fetching products:", error));
   }, []);
