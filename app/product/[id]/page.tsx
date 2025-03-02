@@ -76,7 +76,7 @@ export default function ProductDetail() {
 
         {/* Add to Cart Button */}
         <button
-          onClick={() => toast.success(`Added ${quantity} to cart`)}
+          onClick={() => toast.success(`Added ${quantity} item to cart`)}
           className="w-full text-black py-3 rounded-lg bg-gradient-to-r from-[#F9D03F] to-[#E9B32A] shadow-[0px_4px_24px_4px_#F9D14033] cursor-pointer"
         >
           Add to Cart
