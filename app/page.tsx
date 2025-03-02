@@ -27,7 +27,7 @@ export default function ProductsPage() {
     : products;
 
   return (
-    <div className="p-4 bg-black">
+    <div className="p-4 bg-[#171616]">
       <Header />
       <CategoryList categories={categories} onCategorySelect={setSelectedCategory} />
       

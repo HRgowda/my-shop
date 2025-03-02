@@ -35,7 +35,7 @@ export default function ProductDetail() {
     );
 
   return (
-    <div className="h-screen flex flex-col p-4 bg-[#171616] text-white">
+    <div className="h-screen flex flex-col p-6 bg-[#171616] text-white">
       {/* Back Button */}
       <ArrowLeft
         className="absolute top-4 left-4 text-white cursor-pointer"
@@ -69,7 +69,7 @@ export default function ProductDetail() {
         <p className="font-thin text-white">{product.description}</p>
 
         {/* Quantity Selector & Price */}
-        <div className="grid grid-cols-2 items-center mt-2">
+        <div className="grid grid-cols-2 items-center">
           <QuantitySelector />
           <p className="text-lg text-right">${(quantity * product.price).toFixed(2)}</p>
         </div>
@@ -77,7 +77,7 @@ export default function ProductDetail() {
         {/* Add to Cart Button */}
         <button
           onClick={() => toast.success(`Added ${quantity} to cart`)}
-          className="w-full text-black py-3 rounded-lg mt-2 bg-gradient-to-r from-[#F9D03F] to-[#E9B32A] shadow-[0px_4px_24px_4px_#F9D14033] cursor-pointer"
+          className="w-full text-black py-3 rounded-lg bg-gradient-to-r from-[#F9D03F] to-[#E9B32A] shadow-[0px_4px_24px_4px_#F9D14033] cursor-pointer"
         >
           Add to Cart
         </button>
